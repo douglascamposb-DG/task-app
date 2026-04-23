@@ -2,45 +2,61 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TaskFlow</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div class="app">
-
   <aside class="sidebar">
-    <h2>TaskFlow</h2>
-    <button onclick="setFilter('today')">Hoje</button>
-    <button onclick="setFilter('tomorrow')">Amanhã</button>
-    <button onclick="setFilter('future')">Futuro</button>
+    <div class="logo">
+      <h2>TaskFlow</h2>
+    </div>
+    <nav class="menu">
+      <button onclick="setFilter('today')" id="btn-today" class="active">Hoje</button>
+      <button onclick="setFilter('tomorrow')" id="btn-tomorrow">Amanhã</button>
+      <button onclick="setFilter('future')" id="btn-future">Futuro</button>
+    </nav>
   </aside>
 
   <main class="main">
+    <header>
+      <h1 id="title">Hoje</h1>
+      <p id="subtitle">Suas tarefas organizadas por data e hora</p>
+    </header>
 
-    <h1 id="title">Hoje</h1>
-
-    <div class="top">
-      <input type="text" id="taskInput" placeholder="Nova tarefa">
+    <div class="top-bar">
+      <input type="text" id="taskInput" placeholder="O que precisa ser feito?">
       <input type="date" id="dateInput">
       <input type="time" id="timeInput">
-      <button onclick="addTask()">+</button>
+      <button onclick="addTask()" class="btn-add">Adicionar Tarefa</button>
     </div>
 
     <ul id="taskList"></ul>
-
   </main>
-
 </div>
 
-<!-- MODAL -->
 <div id="modal" class="modal hidden">
   <div class="modal-content">
-    <h3>Detalhes</h3>
-    <textarea id="notes" placeholder="Anotações..."></textarea>
-    <button onclick="saveNotes()">Salvar</button>
-    <button onclick="closeModal()">Fechar</button>
+    <div class="modal-header">
+      <h3 id="modalTaskTitle">Detalhes da Tarefa</h3>
+      <button onclick="closeModal()" class="btn-close-icon">✖</button>
+    </div>
+    
+    <div class="editor-toolbar">
+      <button type="button" onclick="formatText('bold')"><b>B</b></button>
+      <button type="button" onclick="formatText('italic')"><i>I</i></button>
+      <button type="button" onclick="formatText('underline')"><u>U</u></button>
+      <button type="button" onclick="formatText('insertUnorderedList')">• Lista</button>
+    </div>
+    
+    <div id="notesEditor" class="rich-editor" contenteditable="true" placeholder="Escreva suas anotações aqui..."></div>
+    
+    <div class="modal-actions">
+      <button onclick="saveNotes()" class="btn-save">Salvar Anotações</button>
+      <button onclick="closeModal()" class="btn-cancel">Cancelar</button>
+    </div>
   </div>
 </div>
 
