@@ -8,22 +8,21 @@ function setDay(day) {
 }
 
 function addTask() {
-  const input = document.getElementById("taskInput");
-  const text = input.value;
+  const textInput = document.getElementById("taskInput");
+  const text = textInput.value;
 
-  const dateField = document.getElementById("dateInput");
-  const dateInput = dateField ? dateField.value : "";
+  const dateInput = document.getElementById("dateInput").value;
 
-  if (text === "") return;
+  if (!text) return;
 
   let day = "today";
 
   if (dateInput) {
     const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    today.setHours(0,0,0,0);
 
     const selected = new Date(dateInput);
-    selected.setHours(0, 0, 0, 0);
+    selected.setHours(0,0,0,0);
 
     const diff = Math.round((selected - today) / (1000 * 60 * 60 * 24));
 
@@ -44,8 +43,8 @@ function addTask() {
 
   localStorage.setItem("tasks", JSON.stringify(tasks));
 
-  input.value = "";
-  if (dateField) dateField.value = "";
+  textInput.value = "";
+  document.getElementById("dateInput").value = "";
 
   loadTasks();
 }
@@ -75,7 +74,9 @@ function loadTasks() {
       span.style.textDecoration = "line-through";
     }
 
-    checkbox.onclick = () => toggleTask(index);
+    checkbox.onclick = function () {
+      toggleTask(index);
+    };
 
     left.appendChild(checkbox);
     left.appendChild(span);
@@ -83,7 +84,9 @@ function loadTasks() {
     const del = document.createElement("button");
     del.textContent = "X";
     del.className = "delete";
-    del.onclick = () => deleteTask(index);
+    del.onclick = function () {
+      deleteTask(index);
+    };
 
     li.appendChild(left);
     li.appendChild(del);
