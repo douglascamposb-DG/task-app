@@ -8,7 +8,6 @@ function setDay(day) {
 }
 
 function addTask() {
- function addTask() {
   const input = document.getElementById("taskInput");
   const text = input.value;
 
@@ -21,10 +20,10 @@ function addTask() {
 
   if (dateInput) {
     const today = new Date();
-    today.setHours(0,0,0,0);
+    today.setHours(0, 0, 0, 0);
 
     const selected = new Date(dateInput);
-    selected.setHours(0,0,0,0);
+    selected.setHours(0, 0, 0, 0);
 
     const diff = Math.round((selected - today) / (1000 * 60 * 60 * 24));
 
@@ -50,41 +49,6 @@ function addTask() {
 
   loadTasks();
 }
-  }
-
-  const task = {
-    text: text,
-    day: day,
-    done: false,
-    date: dateInput
-  };
-
-  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  tasks.push(task);
-
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-
-  input.value = "";
-  document.getElementById("dateInput").value = "";
-
-  loadTasks();
-}
-  const text = document.getElementById("taskInput").value;
-  if (text === "") return;
-
-  const task = {
-    text: text,
-    day: currentDay,
-    done: false
-  };
-
-  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  tasks.push(task);
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-
-  document.getElementById("taskInput").value = "";
-  loadTasks();
-}
 
 function loadTasks() {
   const list = document.getElementById("taskList");
@@ -107,7 +71,9 @@ function loadTasks() {
     const span = document.createElement("span");
     span.textContent = task.text;
 
-    if (task.done) span.style.textDecoration = "line-through";
+    if (task.done) {
+      span.style.textDecoration = "line-through";
+    }
 
     checkbox.onclick = () => toggleTask(index);
 
