@@ -8,6 +8,42 @@ function setDay(day) {
 }
 
 function addTask() {
+  const input = document.getElementById("taskInput");
+  const text = input.value;
+  const dateInput = document.getElementById("dateInput").value;
+
+  if (text === "") return;
+
+  let day = "today";
+
+  if (dateInput) {
+    const today = new Date();
+    const selected = new Date(dateInput);
+
+    const diff = Math.ceil((selected - today) / (1000 * 60 * 60 * 24));
+
+    if (diff === 0) day = "today";
+    else if (diff === 1) day = "tomorrow";
+    else day = "future";
+  }
+
+  const task = {
+    text: text,
+    day: day,
+    done: false,
+    date: dateInput
+  };
+
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  tasks.push(task);
+
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+
+  input.value = "";
+  document.getElementById("dateInput").value = "";
+
+  loadTasks();
+}
   const text = document.getElementById("taskInput").value;
   if (text === "") return;
 
