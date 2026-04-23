@@ -10,29 +10,38 @@
 
 <div class="app">
 
-  <!-- SIDEBAR -->
   <aside class="sidebar">
     <h2>TaskFlow</h2>
-
-    <button onclick="setDay('today')">Hoje</button>
-    <button onclick="setDay('tomorrow')">Amanhã</button>
+    <button onclick="setFilter('today')">Hoje</button>
+    <button onclick="setFilter('tomorrow')">Amanhã</button>
+    <button onclick="setFilter('future')">Futuro</button>
   </aside>
 
-  <!-- MAIN -->
   <main class="main">
 
     <h1 id="title">Hoje</h1>
 
     <div class="top">
-      <input type="text" id="taskInput" placeholder="O que você precisa fazer?">
+      <input type="text" id="taskInput" placeholder="Nova tarefa">
       <input type="date" id="dateInput">
-      <button onclick="addTask()">Adicionar</button>
+      <input type="time" id="timeInput">
+      <button onclick="addTask()">+</button>
     </div>
 
     <ul id="taskList"></ul>
 
   </main>
 
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal hidden">
+  <div class="modal-content">
+    <h3>Detalhes</h3>
+    <textarea id="notes" placeholder="Anotações..."></textarea>
+    <button onclick="saveNotes()">Salvar</button>
+    <button onclick="closeModal()">Fechar</button>
+  </div>
 </div>
 
 <script src="script.js"></script>
