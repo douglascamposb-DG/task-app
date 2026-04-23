@@ -26,20 +26,19 @@ body {
   box-shadow: 2px 0 10px rgba(0,0,0,0.1);
 }
 
-/* AJUSTES DA LOGO */
 .logo {
-  padding: 0 20px 20px 20px;
+  padding: 20px;
   border-bottom: 1px solid #444;
   margin-bottom: 20px;
-  display: flex; 
-  align-items: center; 
-  gap: 12px; 
+  display: flex;
+  justify-content: center; /* Centraliza a logo horizontalmente */
+  align-items: center;
 }
 
 .logo-img {
-  width: 40px; /* Se achar que ficou pequena ou grande, é só mudar este número */
+  width: 140px; /* Tamanho maior para destacar a marca DG */
   height: auto;
-  border-radius: 6px; 
+  object-fit: contain;
 }
 
 .menu {
@@ -278,7 +277,7 @@ li.completed .task-datetime {
   background: #ffcccc;
 }
 
-/* MODAL & EDITOR (LAYOUT EXPANDIDO) */
+/* MODAL & EDITOR EXPANDIDO */
 .modal {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
@@ -314,22 +313,12 @@ li.completed .task-datetime {
   border-bottom: 2px solid #f0f0f0;
 }
 
-.modal-header h3 {
-  font-size: 22px;
-  color: #333;
-}
-
 .btn-close-icon {
   background: none;
   border: none;
   font-size: 24px;
   color: #888;
   cursor: pointer;
-  transition: color 0.2s;
-}
-
-.btn-close-icon:hover {
-  color: #dc3545;
 }
 
 .editor-toolbar {
@@ -344,20 +333,10 @@ li.completed .task-datetime {
 
 .editor-toolbar button {
   padding: 8px 12px;
-  border: 1px solid transparent;
   background: white;
+  border: 1px solid #ccc;
   cursor: pointer;
   border-radius: 6px;
-  font-size: 14px;
-  font-weight: bold;
-  color: #444;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-  transition: all 0.2s;
-}
-
-.editor-toolbar button:hover {
-  background: #e9ecef;
-  border-color: #ccc;
 }
 
 .rich-editor {
@@ -367,23 +346,10 @@ li.completed .task-datetime {
   border: 1px solid #ddd;
   border-radius: 8px;
   outline: none;
-  font-family: inherit;
   font-size: 16px;
   line-height: 1.6;
   overflow-y: auto;
   background: #fafafa;
-  transition: border 0.3s, background 0.3s;
-}
-
-.rich-editor:focus {
-  border-color: #6a0dad;
-  background: white;
-}
-
-.rich-editor[placeholder]:empty:before {
-  content: attr(placeholder);
-  color: #aaa;
-  font-style: italic;
 }
 
 .modal-actions {
@@ -391,38 +357,20 @@ li.completed .task-datetime {
   justify-content: flex-end;
   gap: 15px;
   margin-top: 25px;
-  padding-top: 15px;
-  border-top: 1px solid #eee;
 }
 
 .btn-save {
   background: #28a745;
   color: white;
-  border: none;
   padding: 12px 25px;
   border-radius: 8px;
-  cursor: pointer;
   font-weight: bold;
-  font-size: 15px;
-  transition: background 0.3s;
-}
-
-.btn-save:hover {
-  background: #218838;
+  cursor: pointer;
 }
 
 .btn-cancel {
   background: #f0f0f0;
-  color: #333;
-  border: none;
   padding: 12px 25px;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 15px;
-  font-weight: bold;
-  transition: background 0.3s;
-}
-
-.btn-cancel:hover {
-  background: #e0e0e0;
 }
