@@ -18,9 +18,12 @@ function addTask() {
 
   if (dateInput) {
     const today = new Date();
-    const selected = new Date(dateInput);
+today.setHours(0,0,0,0);
 
-    const diff = Math.ceil((selected - today) / (1000 * 60 * 60 * 24));
+const selected = new Date(dateInput);
+selected.setHours(0,0,0,0);
+
+const diff = Math.round((selected - today) / (1000 * 60 * 60 * 24));
 
     if (diff === 0) day = "today";
     else if (diff === 1) day = "tomorrow";
