@@ -14,6 +14,7 @@
       <img src="logodg.png" alt="Logo DG" class="logo-img">
     </div>
     <nav class="menu">
+      <button onclick="setFilter('all')" id="btn-all">Visão Geral</button>
       <button onclick="setFilter('today')" id="btn-today" class="active">Hoje</button>
       <button onclick="setFilter('tomorrow')" id="btn-tomorrow">Amanhã</button>
       <button onclick="setFilter('future')" id="btn-future">Futuro</button>
@@ -23,14 +24,14 @@
   <main class="main">
     <header>
       <h1 id="title">Hoje</h1>
-      <p id="subtitle">Suas tarefas organizadas por data e hora</p>
+      <p id="subtitle">Suas tarefas organizadas do seu jeito</p>
     </header>
 
     <div class="top-bar">
       <input type="text" id="taskInput" placeholder="O que precisa ser feito?">
       <input type="date" id="dateInput">
       <input type="time" id="timeInput">
-      <button onclick="addTask()" class="btn-add">Adicionar Tarefa</button>
+      <button onclick="addTask()" class="btn-add">Adicionar</button>
     </div>
 
     <ul id="taskList"></ul>
@@ -44,6 +45,17 @@
       <button onclick="closeModal()" class="btn-close-icon">✖</button>
     </div>
     
+    <div class="modal-edit-fields">
+      <div class="field-group">
+        <label>Data:</label>
+        <input type="date" id="editDate">
+      </div>
+      <div class="field-group">
+        <label>Hora:</label>
+        <input type="time" id="editTime">
+      </div>
+    </div>
+
     <div class="editor-toolbar">
       <button type="button" onclick="formatText('bold')"><b>B</b></button>
       <button type="button" onclick="formatText('italic')"><i>I</i></button>
@@ -54,7 +66,7 @@
     <div id="notesEditor" class="rich-editor" contenteditable="true" placeholder="Escreva suas anotações aqui..."></div>
     
     <div class="modal-actions">
-      <button onclick="saveNotes()" class="btn-save">Salvar Anotações</button>
+      <button onclick="saveTaskDetails()" class="btn-save">Salvar Alterações</button>
       <button onclick="closeModal()" class="btn-cancel">Cancelar</button>
     </div>
   </div>
