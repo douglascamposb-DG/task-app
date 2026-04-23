@@ -3,9 +3,11 @@ let currentIndex = null;
 
 function setFilter(f) {
   filter = f;
+
   document.getElementById("title").textContent =
     f === "today" ? "Hoje" :
     f === "tomorrow" ? "Amanhã" : "Futuro";
+
   loadTasks();
 }
 
@@ -26,23 +28,30 @@ function addTask() {
 
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   tasks.push(task);
+
   localStorage.setItem("tasks", JSON.stringify(tasks));
+
+  document.getElementById("taskInput").value = "";
+  document.getElementById("dateInput").value = "";
+  document.getElementById("timeInput").value = "";
 
   loadTasks();
 }
 
+// 🔥 FUNÇÃO CORRIGIDA (a mais importante)
 function getCategory(task) {
   if (!task.date) return "today";
 
-  const today = new Date().toISOString().split("T")[0];
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  const tomorrowStr = tomorrow.toISOString().split("T")[0];
+  const taskDate = new Date(task.date);
+  taskDate.setHours(0, 0, 0, 0);
 
-  if (task.date === today) return "today";
-  if (task.date === tomorrowStr) return "tomorrow";
+  const diff = Math.round((taskDate - today) / (1000 * 60 * 60 * 24));
 
+  if (diff <= 0) return "today";
+  if (diff === 1) return "tomorrow";
   return "future";
 }
 
@@ -58,8 +67,14 @@ function loadTasks() {
     const li = document.createElement("li");
 
     li.innerHTML = `
-      <span>${task.text} ${task.time || ""}</span>
-      <button onclick="openModal(${index})">Abrir</button>
+      <div>
+        <strong>${task.text}</strong><br>
+        ${task.date || ""} ${task.time || ""}
+      </div>
+      <div>
+        <button onclick="openModal(${index})">Abrir</button>
+        <button onclick="deleteTask(${index})">X</button>
+      </div>
     `;
 
     list.appendChild(li);
@@ -68,8 +83,12 @@ function loadTasks() {
 
 function openModal(index) {
   currentIndex = index;
+
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  document.getElementById("notes").value = tasks[index].notes || "";
+
+  document.getElementById("notes").value =
+    tasks[index].notes || "";
+
   document.getElementById("modal").classList.remove("hidden");
 }
 
@@ -79,9 +98,23 @@ function closeModal() {
 
 function saveNotes() {
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  tasks[currentIndex].notes = document.getElementById("notes").value;
+
+  tasks[currentIndex].notes =
+    document.getElementById("notes").value;
+
   localStorage.setItem("tasks", JSON.stringify(tasks));
+
   closeModal();
+}
+
+function deleteTask(index) {
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+  tasks.splice(index, 1);
+
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+
+  loadTasks();
 }
 
 window.onload = loadTasks;
