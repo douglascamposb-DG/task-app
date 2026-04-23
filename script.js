@@ -8,9 +8,12 @@ function setDay(day) {
 }
 
 function addTask() {
+ function addTask() {
   const input = document.getElementById("taskInput");
   const text = input.value;
-  const dateInput = document.getElementById("dateInput").value;
+
+  const dateField = document.getElementById("dateInput");
+  const dateInput = dateField ? dateField.value : "";
 
   if (text === "") return;
 
@@ -18,16 +21,35 @@ function addTask() {
 
   if (dateInput) {
     const today = new Date();
-today.setHours(0,0,0,0);
+    today.setHours(0,0,0,0);
 
-const selected = new Date(dateInput);
-selected.setHours(0,0,0,0);
+    const selected = new Date(dateInput);
+    selected.setHours(0,0,0,0);
 
-const diff = Math.round((selected - today) / (1000 * 60 * 60 * 24));
+    const diff = Math.round((selected - today) / (1000 * 60 * 60 * 24));
 
     if (diff === 0) day = "today";
     else if (diff === 1) day = "tomorrow";
     else day = "future";
+  }
+
+  const task = {
+    text: text,
+    day: day,
+    done: false,
+    date: dateInput
+  };
+
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  tasks.push(task);
+
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+
+  input.value = "";
+  if (dateField) dateField.value = "";
+
+  loadTasks();
+}
   }
 
   const task = {
