@@ -1,7 +1,13 @@
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: Arial;
-  background: #f4f4f4;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f0f2f5;
+  color: #333;
 }
 
 .app {
@@ -9,75 +15,365 @@ body {
   height: 100vh;
 }
 
+/* SIDEBAR */
 .sidebar {
-  width: 220px;
-  background: linear-gradient(180deg, #6a0dad, #4b0082);
+  width: 250px;
+  background: linear-gradient(180deg, #2b2b2b, #1a1a1a);
   color: white;
-  padding: 20px;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
 }
 
-.sidebar button {
+.logo {
+  padding: 0 20px 20px 20px;
+  border-bottom: 1px solid #444;
+  margin-bottom: 20px;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+}
+
+.menu button {
   width: 100%;
-  margin-top: 10px;
-  padding: 10px;
+  text-align: left;
+  padding: 12px 20px;
   border: none;
-  background: #7b2cbf;
-  color: white;
+  background: transparent;
+  color: #aaa;
+  font-size: 16px;
   border-radius: 8px;
   cursor: pointer;
+  transition: all 0.3s;
+  margin-bottom: 5px;
 }
 
+.menu button:hover {
+  background: #333;
+  color: white;
+}
+
+.menu button.active {
+  background: #6a0dad; /* Mantive o seu tom de roxo como cor de destaque */
+  color: white;
+  font-weight: bold;
+}
+
+/* MAIN AREA */
 .main {
   flex: 1;
-  padding: 30px;
+  padding: 40px;
+  overflow-y: auto;
 }
 
-.top {
+header {
+  margin-bottom: 30px;
+}
+
+#title {
+  font-size: 32px;
+  color: #1a1a1a;
+}
+
+#subtitle {
+  color: #666;
+  font-size: 14px;
+}
+
+/* TOP BAR (INPUTS) */
+.top-bar {
   display: flex;
-  gap: 10px;
+  gap: 15px;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  margin-bottom: 30px;
+  align-items: center;
 }
 
-input {
-  padding: 10px;
+.top-bar input {
+  padding: 12px;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
+  font-size: 15px;
+  outline: none;
+  transition: border 0.3s;
 }
 
-button {
-  padding: 10px;
+.top-bar input:focus {
+  border-color: #6a0dad;
+}
+
+#taskInput {
+  flex: 1;
+}
+
+.btn-add {
+  padding: 12px 24px;
   border: none;
   background: #6a0dad;
   color: white;
   border-radius: 8px;
+  font-weight: bold;
   cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-add:hover {
+  background: #530a88;
+}
+
+/* LISTA DE TAREFAS */
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 li {
   background: white;
-  padding: 12px;
-  margin-top: 10px;
+  padding: 20px;
   border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s, opacity 0.3s;
 }
 
-.modal {
-  position: fixed;
+li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.task-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.task-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-text strong {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 4px;
+  transition: color 0.3s;
+}
+
+.task-datetime {
+  font-size: 13px;
+  color: #888;
+}
+
+/* CHECKBOX CUSTOMIZADO */
+.custom-checkbox {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.custom-checkbox input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkmark {
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
+  height: 24px;
+  width: 24px;
+  background-color: #eee;
+  border-radius: 6px;
+  border: 2px solid #ccc;
+  transition: all 0.2s;
+}
+
+.custom-checkbox:hover input ~ .checkmark {
+  background-color: #ddd;
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 7px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* TAREFA CONCLUÍDA */
+li.completed .task-text strong {
+  text-decoration: line-through;
+  color: #aaa;
+}
+li.completed .task-datetime {
+  opacity: 0.6;
+}
+
+/* BOTÕES DE AÇÃO DO CARTÃO */
+.task-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.task-actions button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-notes {
+  background: #f0f0f0;
+  color: #333;
+}
+.btn-notes:hover {
+  background: #e0e0e0;
+}
+
+.btn-delete {
+  background: #ffe5e5;
+  color: #dc3545;
+}
+.btn-delete:hover {
+  background: #ffcccc;
+}
+
+/* MODAL & EDITOR */
+.modal {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .modal-content {
   background: white;
-  padding: 20px;
-  margin: 10% auto;
-  width: 300px;
-  border-radius: 10px;
+  width: 600px;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.btn-close-icon {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #888;
+  cursor: pointer;
+}
+
+.editor-toolbar {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 10px;
+  background: #f8f9fa;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.editor-toolbar button {
+  padding: 5px 10px;
+  border: 1px solid transparent;
+  background: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.editor-toolbar button:hover {
+  background: #e9ecef;
+  border-color: #ccc;
+}
+
+.rich-editor {
+  width: 100%;
+  min-height: 200px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  font-family: inherit;
+  line-height: 1.5;
+  overflow-y: auto;
+}
+
+.rich-editor:focus {
+  border-color: #6a0dad;
+}
+
+.rich-editor[placeholder]:empty:before {
+  content: attr(placeholder);
+  color: #aaa;
+  font-style: italic;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-save {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-cancel {
+  background: #f0f0f0;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
 }
